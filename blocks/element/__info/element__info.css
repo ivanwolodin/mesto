@@ -1,0 +1,5 @@
+.element__info {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+}
