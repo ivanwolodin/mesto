@@ -1,4 +1,7 @@
 .element__name {
   margin-top: 0;
   margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
