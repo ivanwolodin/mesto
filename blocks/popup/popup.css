@@ -3,7 +3,7 @@
   height: 330px;
   position: absolute;
   top: 195px;
-  display: flex;
+  display: none;
   justify-content: center;
   left: 50%;
   transform: translateX(-50%);
