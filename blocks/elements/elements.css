@@ -1,5 +1,5 @@
 .elements {
-  margin-top: 50px;
+  margin-top: 47px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 17px;
