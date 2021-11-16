@@ -4,4 +4,8 @@
   margin-top: 0;
   margin-bottom: 0;
   align-self: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 200px;
 }
