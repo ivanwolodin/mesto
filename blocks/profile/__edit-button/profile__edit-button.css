@@ -4,4 +4,25 @@
   margin-top: 26px;
   margin-left: 18px;
   margin-right: 0;
+  background: url(../../../images/edit_button.svg);
+  background-position: center;
+  border: 1px solid #ffffff;
+  padding: 0 0;
+  cursor: pointer;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 620px) {
+  .profile__edit-button {
+    align-self: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__edit-button {
+    margin-left: 10px;
+  }
 }

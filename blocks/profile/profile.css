@@ -1,7 +1,39 @@
 .profile {
-  margin-right: 200px;
-  margin-left: 200px;
+  width: 880px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 40px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: row; 
+  /* justify-content: space-between; */
+}
+
+@media screen and (max-width: 920px) {
+  .profile {
+    width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+
+@media screen and (max-width: 620px) {
+  .profile {
+    width: 400px;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .profile {
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    margin-top: 42px;
+  }
 }

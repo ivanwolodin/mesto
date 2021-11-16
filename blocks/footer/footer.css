@@ -1,5 +1,29 @@
 .footer {
   margin-top: 66px;
   margin-bottom: 60px;
-  margin-left: 200px;
+  width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 60px;
+}
+
+@media screen and (max-width: 920px) {
+  .footer {
+    width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}  
+
+@media screen and (max-width: 620px) {
+  .footer {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .footer {
+    margin-bottom: 30px;
+    margin-top: 48px;
+  }
 }
