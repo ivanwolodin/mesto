@@ -1,11 +1,11 @@
 .profile__position {
   color: #ffffff;
-  margin-top: 16px;
   margin-bottom: 0;
   font-family: "Inter", "Arial", sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  margin-top: 16px;
 }
 
 @media screen and (max-width: 620px) {

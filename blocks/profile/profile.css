@@ -2,10 +2,9 @@
   width: 880px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 40px;
+  margin-top: 36px;
   display: flex;
-  flex-direction: row; 
-  /* justify-content: space-between; */
+  flex-direction: row;
 }
 
 @media screen and (max-width: 920px) {
@@ -15,7 +14,6 @@
     margin-left: auto;
   }
 }
-
 
 @media screen and (max-width: 620px) {
   .profile {

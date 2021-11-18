@@ -1,5 +1,4 @@
 .profile__personal-data {
-  /* margin-left: 30px; */
   display: flex;
   flex-direction: row;
 }
@@ -7,5 +6,6 @@
 @media screen and (max-width: 620px) {
   .profile__personal-data {
     align-self: center;
+    margin-top: 26px;
   }
 }

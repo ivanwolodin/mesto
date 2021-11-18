@@ -1,5 +1,6 @@
 .popup__container {
   background-color: white;
+  max-width: 430px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -14,5 +15,6 @@
     padding-left: 22px;
     padding-right: 22px;
     border-radius: 10px;
+    max-width: 282px;
   }
 }

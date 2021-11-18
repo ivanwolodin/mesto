@@ -1,35 +1,37 @@
-console.log("connected!");
+const popup = document.querySelector(".popup");
+const editButton = document.querySelector(".profile__edit-button");
 
-let popup = document.querySelector(".popup");
-let editButton = document.querySelector(".profile__edit-button");
+const closePopupButton = popup.querySelector(".popup__close-button");
+const savePopupButton = popup.querySelector(".popup__save-button");
 
-let closePopupButton = document.querySelector(".popup__close-button");
-let savePopupButton = document.querySelector(".popup__save-button");
-
-let popupName = document.querySelector(".popup__name");
-let popupPosition = document.querySelector(".popup__profession");
+let popupName = popup.querySelector(".popup__subtitle_type_name");
+let popupPosition = popup.querySelector(".popup__subtitle_type_profession");
 
 let profileName = document.querySelector(".profile__name");
 let profilePosition = document.querySelector(".profile__position");
 
-function open() {
-  popupName = document.querySelector(".profile__name").innerHTML;
-  popupPosition = document.querySelector(".profile__position").innerHTML;
+function openPopup() {
+  popupName = document.querySelector(".profile__name").textContent;
+  popupPosition = document.querySelector(".profile__position").textContent;
   popup.classList.add("popup_opened");
 }
 
-function closeAndSave(evt) {
+function formSubmitHandler(evt) {
   evt.preventDefault();
-  profileName.innerHTML = document.querySelector(".popup__name").value;
-  profilePosition.innerHTML =
-    document.querySelector(".popup__profession").value;
+  profileName.textContent = popup.querySelector(
+    ".popup__subtitle_type_name"
+  ).value;
+  profilePosition.textContent = popup.querySelector(
+    ".popup__subtitle_type_profession"
+  ).value;
   popup.classList.remove("popup_opened");
 }
 
-function closeWithoutSaving() {
+function closePopup(evt) {
+  evt.preventDefault();
   popup.classList.remove("popup_opened");
 }
 
-editButton.addEventListener("click", open);
-closePopupButton.addEventListener("click", closeWithoutSaving);
-savePopupButton.addEventListener("click", closeAndSave);
+editButton.addEventListener("click", openPopup);
+closePopupButton.addEventListener("click", closePopup);
+savePopupButton.addEventListener("click", formSubmitHandler);
