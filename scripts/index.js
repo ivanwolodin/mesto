@@ -20,12 +20,27 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = popupName.value;
   profilePosition.textContent = popupPosition.value;
-  popup.classList.remove("popup_opened");
+  closePopup();
 }
 
 function closePopup() {
   popup.classList.remove("popup_opened");
 }
+
+function changeBackgroundColor() {
+  const date = new Date();
+  const hour = date.getHours();
+
+  if (hour > 7 && hour < 16) {
+    const backgroundColor = document.querySelector(".root");
+    backgroundColor.style = "background-color: #868a86;";
+
+    profileName.style = "color: black";
+    profilePosition.style = "color: black";
+  }
+}
+
+changeBackgroundColor();
 
 editButton.addEventListener("click", openPopup);
 closePopupButton.addEventListener("click", closePopup);
