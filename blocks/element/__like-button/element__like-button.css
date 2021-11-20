@@ -1,6 +1,24 @@
+@keyframes jerking {
+  0% {
+    height: 19px;
+    width: 22px;
+  }
+
+  50% {
+    height: 24px;
+    width: 27px;
+  }
+
+  100% {
+    height: 19px;
+    width: 22px;
+  }
+}
+
 .element__like-button {
   background: url(../../../images/heart.svg);
   background-position: center;
+  background-repeat: no-repeat;
   height: 19px;
   width: 22px;
   border: 0;
@@ -12,4 +30,7 @@
 
 .element__like-button:hover {
   opacity: 0.4;
+  animation-name: jerking;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 }

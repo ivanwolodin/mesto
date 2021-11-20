@@ -1,3 +1,14 @@
+@keyframes jump {
+  0% {
+    margin-top: -10px;
+    padding-left: -10px;
+  }
+  100% {
+    margin-top: 0;
+    padding-left: 0;
+  }
+}
+
 .element {
   width: 282px;
   height: auto;
@@ -8,4 +19,10 @@
   padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
+  cursor: pointer;
+}
+
+.element:hover {
+  animation-name: jump;
+  animation-duration: 0.4s;
 }
