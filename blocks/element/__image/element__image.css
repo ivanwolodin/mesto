@@ -1,2 +1,7 @@
 .element__image {
+  width: 282px;
+  height: 282px;
+  background-repeat: repeat;
+  background-size: cover;
+  background-size: contain;
 }
