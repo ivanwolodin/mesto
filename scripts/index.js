@@ -51,10 +51,14 @@ initialCards.forEach((item) => {
   const element = elementsTemplate.cloneNode(true);
   element.querySelector(".element__image").src = item.link;
   element.querySelector(".element__name").textContent = item.name;
+  element
+    .querySelector(".element__delete-icon")
+    .addEventListener("click", deleteCard);
+  element
+    .querySelector(".element__like-button")
+    .addEventListener("click", likeCard);
   elements.append(element);
 });
-
-const deleteButton = document.querySelector(".element__delete-icon");
 
 function openPopupProfile() {
   popupName.value = profileName.textContent;
@@ -93,6 +97,12 @@ function addNewCard(evt) {
   if (cardLink !== "" && cardName !== "") {
     element.querySelector(".element__image").src = cardLink;
     element.querySelector(".element__name").textContent = cardName;
+    element
+      .querySelector(".element__delete-icon")
+      .addEventListener("click", deleteCard);
+    element
+      .querySelector(".element__like-button")
+      .addEventListener("click", likeCard);
     elements.prepend(element);
     popupCardLink.value = "";
     popupCardName.value = "";
@@ -103,6 +113,11 @@ function addNewCard(evt) {
 
 function deleteCard(evt) {
   evt.preventDefault();
+  evt.target.parentNode.parentNode.parentNode.remove();
+}
+
+function likeCard(evt) {
+  evt.preventDefault();
 }
 
 editButton.addEventListener("click", openPopupProfile);
@@ -112,5 +127,3 @@ savePopupButton.addEventListener("click", formSubmitHandler);
 addButton.addEventListener("click", openPopupImage);
 closePopupImageButton.addEventListener("click", closePopupImage);
 savePopupImageButton.addEventListener("click", addNewCard);
-
-deleteButton.addEventListener("click", deleteCard);
