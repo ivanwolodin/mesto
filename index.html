@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
+    <script src="./scripts/index.js" defer></script>
     <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="root">
@@ -26,9 +27,7 @@
         </section>
 
         <section>
-          <ul class="elements">
-
-          </ul>
+          <ul class="elements"></ul>
         </section>
       </main>
 
@@ -50,8 +49,13 @@
           type="text"
           placeholder="Исследователь океана"
         />
-        <button class="popup__save-profile popup__save-button" type="submit">Сохранить</button>
-        <button class="popup__close-profile popup__close-button" type="reset"></button>
+        <button class="popup__save-profile popup__save-button" type="submit">
+          Сохранить
+        </button>
+        <button
+          class="popup__close-profile popup__close-button"
+          type="reset"
+        ></button>
       </form>
     </div>
 
@@ -68,21 +72,36 @@
           type="text"
           placeholder="Ссылка на картинку"
         />
-        <button class="popup__save-image popup__save-button" type="submit">Создать</button>
-        <button class="popup__close-image popup__close-button" type="reset"></button>
+        <button class="popup__save-image popup__save-button" type="submit">
+          Создать
+        </button>
+        <button
+          class="popup__close-image popup__close-button"
+          type="reset"
+        ></button>
       </form>
+    </div>
+
+    <div class="popup__pic popup">
+      <div class="popup__picture">
+        <img class="popup__source"
+          src="#"
+          alt="#"
+        />
+        <p class="popup__label"></p>
+        <button
+          class="popup__close-image popup__close-button"
+          type="reset"
+        ></button>
+      </div>
     </div>
 
     <template class="elements-cards">
       <li class="element">
         <article>
-          <img
-            class="element__image"
-            src=""
-            alt=""
-          />
+          <img class="element__image" src="" alt="" />
           <div class="element__info">
-            <h2 class="element__name"> </h2>
+            <h2 class="element__name"></h2>
             <button class="element__like-button"></button>
           </div>
           <div class="element__delete-icon">
@@ -92,7 +111,5 @@
         </article>
       </li>
     </template>
-
-    <script src="./scripts/index.js"></script>
   </body>
 </html>

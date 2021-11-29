@@ -25,6 +25,8 @@ const initialCards = [
   },
 ];
 
+const popupPicture = document.querySelector(".popup__pic");
+
 const popupProfile = document.querySelector(".popup__profile");
 const editButton = document.querySelector(".profile__edit-button");
 
@@ -65,6 +67,8 @@ function addItem(item) {
     .querySelector(".element__like-button")
     .addEventListener("click", likeCard);
 
+  element.querySelector(".element").addEventListener("click", extendCard);
+
   return element;
 }
 
@@ -73,7 +77,16 @@ function openPopup(popup) {
     popupName.value = profileName.textContent;
     popupPosition.value = profilePosition.textContent;
   }
+
   popup.classList.add("popup_opened");
+}
+
+function extendCard(evt) {
+  popupPicture.querySelector(".popup__source").src = evt.target.src;
+  popupPicture.querySelector(".popup__source").alt = evt.target.alt;
+  popupPicture.querySelector(".popup__label").textContent = evt.target.alt;
+
+  popupPicture.classList.add("popup_opened");
 }
 
 function closePopup(popup) {
@@ -124,5 +137,7 @@ savePopupButton.addEventListener("click", handleEditProfileInfo);
 addButton.addEventListener("click", () => openPopup(popupImage));
 closePopupImageButton.addEventListener("click", () => closePopup(popupImage));
 savePopupImageButton.addEventListener("click", handleAddNewCard);
+
+popupPicture.addEventListener("click", () => closePopup(popupPicture));
 
 render();
