@@ -56,6 +56,7 @@ function render() {
 function addItem(item) {
   const element = elementsTemplate.cloneNode(true);
   element.querySelector(".element__image").src = item.link;
+  element.querySelector(".element__image").alt = item.name;
   element.querySelector(".element__name").textContent = item.name;
   element
     .querySelector(".element__delete-icon")
@@ -113,6 +114,7 @@ function deleteCard(evt) {
 
 function likeCard(evt) {
   evt.preventDefault();
+  evt.target.classList.toggle("element__like-button_liked");
 }
 
 editButton.addEventListener("click", () => openPopup(popupProfile));
