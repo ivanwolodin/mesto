@@ -67,26 +67,26 @@ function addItem(item) {
     .querySelector(".element__like-button")
     .addEventListener("click", likeCard);
 
-  element.querySelector(".element__image").addEventListener("click", extendCard);
+  element
+    .querySelector(".element__image")
+    .addEventListener("click", (evt) => openPopup(popupPicture, evt));
 
   return element;
 }
 
-function openPopup(popup) {
+function openPopup(popup, evt) {
   if (popup === popupProfile) {
     popupName.value = profileName.textContent;
     popupPosition.value = profilePosition.textContent;
   }
 
+  if (popup === popupPicture) {
+    popupPicture.querySelector(".popup__source").src = evt.target.src;
+    popupPicture.querySelector(".popup__source").alt = evt.target.alt;
+    popupPicture.querySelector(".popup__label").textContent = evt.target.alt;
+  }
+
   popup.classList.add("popup_opened");
-}
-
-function extendCard(evt) {
-  popupPicture.querySelector(".popup__source").src = evt.target.src;
-  popupPicture.querySelector(".popup__source").alt = evt.target.alt;
-  popupPicture.querySelector(".popup__label").textContent = evt.target.alt;
-
-  popupPicture.classList.add("popup_opened");
 }
 
 function closePopup(popup) {
@@ -123,6 +123,7 @@ function handleAddNewCard(evt) {
 function deleteCard(evt) {
   evt.preventDefault();
   evt.target.parentNode.parentNode.parentNode.remove();
+  evt.stopPropagation();
 }
 
 function likeCard(evt) {

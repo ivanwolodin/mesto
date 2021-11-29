@@ -10,7 +10,6 @@
   transform: translateX(-50%);
   align-items: center;
   justify-content: center;
-
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
