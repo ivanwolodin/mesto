@@ -9,12 +9,3 @@
   position: relative;
   margin: 0 auto;
 }
-
-@media screen and (max-width: 620px) {
-  .popup__title {
-    padding-left: 22px;
-    padding-right: 22px;
-    border-radius: 10px;
-    max-width: 282px;
-  }
-}
