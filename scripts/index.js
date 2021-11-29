@@ -67,7 +67,7 @@ function addItem(item) {
     .querySelector(".element__like-button")
     .addEventListener("click", likeCard);
 
-  element.querySelector(".element").addEventListener("click", extendCard);
+  element.querySelector(".element__image").addEventListener("click", extendCard);
 
   return element;
 }
