@@ -25,9 +25,9 @@ const initialCards = [
   },
 ];
 
-const popupPicture = document.querySelector(".popup__pic");
+const popupPicture = document.querySelector(".popup_pic");
 
-const popupProfile = document.querySelector(".popup__profile");
+const popupProfile = document.querySelector(".popup_profile");
 const editButton = document.querySelector(".profile__edit-button");
 
 const closePopupButton = popupProfile.querySelector(".popup__close-button");
@@ -41,7 +41,7 @@ const popupPosition = popupProfile.querySelector(
 let profileName = document.querySelector(".profile__name");
 let profilePosition = document.querySelector(".profile__position");
 
-const popupImage = document.querySelector(".popup__image");
+const popupImage = document.querySelector(".popup_image");
 const closePopupImageButton = popupImage.querySelector(".popup__close-image");
 const savePopupImageButton = popupImage.querySelector(".popup__save-image");
 const addButton = document.querySelector(".profile__add-button");
