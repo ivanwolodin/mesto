@@ -26,6 +26,9 @@ const initialCards = [
 ];
 
 const popupPicture = document.querySelector(".popup_pic");
+const closePopupPictureButton = popupPicture.querySelector(
+  ".popup__close-button"
+);
 
 const popupProfile = document.querySelector(".popup_profile");
 const editButton = document.querySelector(".profile__edit-button");
@@ -97,7 +100,6 @@ function handleEditProfileInfo(evt) {
   evt.preventDefault();
   profileName.textContent = popupName.value;
   profilePosition.textContent = popupPosition.value;
-  popupProfile.classList.remove("popup_opened");
 
   closePopup(popupProfile);
 }
@@ -139,6 +141,8 @@ addButton.addEventListener("click", () => openPopup(popupImage));
 closePopupImageButton.addEventListener("click", () => closePopup(popupImage));
 savePopupImageButton.addEventListener("click", handleAddNewCard);
 
-popupPicture.addEventListener("click", () => closePopup(popupPicture));
+closePopupPictureButton.addEventListener("click", () =>
+  closePopup(popupPicture)
+);
 
 render();
