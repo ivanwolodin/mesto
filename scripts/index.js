@@ -32,7 +32,9 @@ const closePopupPictureButton = popupPicture.querySelector(
 
 const popupProfile = document.querySelector(".popup_profile");
 const editButton = document.querySelector(".profile__edit-button");
-const popupProfileForm = document.querySelector(".popup__container_profile_form");
+const popupProfileForm = document.querySelector(
+  ".popup__container_profile_form"
+);
 
 const closePopupButton = popupProfile.querySelector(".popup__close-button");
 const savePopupButton = popupProfile.querySelector(".popup__save-button");
@@ -42,8 +44,8 @@ const popupPosition = popupProfile.querySelector(
   ".popup__subtitle_type_profession"
 );
 
-let profileName = document.querySelector(".profile__name");
-let profilePosition = document.querySelector(".profile__position");
+const profileName = document.querySelector(".profile__name");
+const profilePosition = document.querySelector(".profile__position");
 
 const popupImage = document.querySelector(".popup_image");
 const closePopupImageButton = popupImage.querySelector(".popup__close-image");
@@ -72,13 +74,10 @@ function addItem(item) {
     .querySelector(".element__like-button")
     .addEventListener("click", likeCard);
 
-  element
-    .querySelector(".element__image")
-    .addEventListener("click", () => openPopup(popupPicture));
-
-  element
-    .querySelector(".element__image")
-    .addEventListener("click", (evt) => getPictureInfo(popupPicture, evt));
+  element.querySelector(".element__image").addEventListener("click", (evt) => {
+    getPictureInfo(popupPicture, evt);
+    openPopup(popupPicture);
+  });
 
   return element;
 }
@@ -139,8 +138,10 @@ function likeCard(evt) {
   evt.target.classList.toggle("element__like-button_liked");
 }
 
-editButton.addEventListener("click", () => getProfileInfo);
-editButton.addEventListener("click", () => openPopup(popupProfile));
+editButton.addEventListener("click", () => {
+  getProfileInfo();
+  openPopup(popupProfile);
+});
 
 closePopupButton.addEventListener("click", () => closePopup(popupProfile));
 popupProfileForm.addEventListener("submit", handleEditProfileInfo);
