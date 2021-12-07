@@ -8,12 +8,11 @@
   border-bottom: 1px solid #000000;
   padding-bottom: 13px;
   margin-top: 0;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 
 @media screen and (max-width: 620px) {
   .popup__subtitle {
     margin-top: 0;
-    margin-bottom: 30;
   }
 }

@@ -155,4 +155,16 @@ closePopupPictureButton.addEventListener("click", () =>
   closePopup(popupPicture)
 );
 
+popupProfile
+  .querySelector(".popup__overlay")
+  .addEventListener("click", () => closePopup(popupProfile));
+
+popupImage
+  .querySelector(".popup__overlay")
+  .addEventListener("click", () => closePopup(popupImage));
+
+popupPicture
+  .querySelector(".popup__overlay")
+  .addEventListener("click", () => closePopup(popupPicture));
+
 render();

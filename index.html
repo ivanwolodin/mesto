@@ -37,18 +37,26 @@
     </div>
 
     <div class="popup popup_profile">
-      <form class="popup__container popup__container_profile_form">
+      <div class="popup__overlay"></div>
+      <form
+        class="popup__container popup__container_profile_form form"
+        novalidate
+      >
         <h3 class="popup__title">Редактировать профиль</h3>
         <input
-          class="popup__subtitle popup__subtitle_type_name"
+          class="popup__subtitle popup__subtitle_type_name form__input"
+          id="name-input"
           type="text"
           placeholder="Жак-Ив Густо"
         />
+        <span class="form__input-error name-input-error"></span>
         <input
-          class="popup__subtitle popup__subtitle_type_profession"
+          class="popup__subtitle popup__subtitle_type_profession form__input"
+          id="position-input"
           type="text"
           placeholder="Исследователь океана"
         />
+        <span class="form__input-error position-input-error"></span>
         <button class="popup__save-profile popup__save-button" type="submit">
           Сохранить
         </button>
@@ -60,18 +68,23 @@
     </div>
 
     <div class="popup popup_image">
-      <form class="popup__container popup__container_card_form">
+      <div class="popup__overlay"></div>
+      <form class="popup__container popup__container_card_form form" novalidate>
         <h3 class="popup__title">Новое место</h3>
         <input
-          class="popup__subtitle popup__subtitle_type_image"
+          class="popup__subtitle popup__subtitle_type_image form__input"
+          id="card-input"
           type="text"
           placeholder="Название"
         />
+        <span class="form__input-error card-input-error"></span>
         <input
-          class="popup__subtitle popup__subtitle_type_link"
+          class="popup__subtitle popup__subtitle_type_link form__input"
+          id="url-input"
           type="text"
           placeholder="Ссылка на картинку"
         />
+        <span class="form__input-error url-input-error"></span>
         <button class="popup__save-image popup__save-button" type="submit">
           Создать
         </button>
@@ -83,6 +96,7 @@
     </div>
 
     <div class="popup popup_pic">
+      <div class="popup__overlay"></div>
       <div class="popup__picture">
         <img class="popup__source" src="#" alt="#" />
         <p class="popup__label"></p>
