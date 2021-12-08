@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validate.js" defer></script>
     <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="root">
@@ -39,7 +40,7 @@
     <div class="popup popup_profile">
       <div class="popup__overlay"></div>
       <form
-        class="popup__container popup__container_profile_form form"
+        class="popup__container popup__container_profile_form popup__form"
         novalidate
       >
         <h3 class="popup__title">Редактировать профиль</h3>
@@ -69,7 +70,7 @@
 
     <div class="popup popup_image">
       <div class="popup__overlay"></div>
-      <form class="popup__container popup__container_card_form form" novalidate>
+      <form class="popup__container popup__container_card_form popup__form" novalidate>
         <h3 class="popup__title">Новое место</h3>
         <input
           class="popup__subtitle popup__subtitle_type_image form__input"

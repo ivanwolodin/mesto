@@ -82,8 +82,17 @@ function addItem(item) {
   return element;
 }
 
+function closeByEsc(popup) {
+  document.addEventListener("keydown", function (evt) {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    }
+  })
+}
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closeByEsc(popup));
 }
 
 function getProfileInfo() {
@@ -98,6 +107,7 @@ function getPictureInfo(popup, evt) {
 }
 
 function closePopup(popup) {
+  document.removeEventListener("keydown", closeByEsc(popup));
   popup.classList.remove("popup_opened");
 }
 
@@ -166,5 +176,6 @@ popupImage
 popupPicture
   .querySelector(".popup__overlay")
   .addEventListener("click", () => closePopup(popupPicture));
+
 
 render();
