@@ -111,28 +111,24 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
-function handleEditProfileInfo(evt) {
-  evt.preventDefault();
+function handleEditProfileInfo() {
   profileName.textContent = popupName.value;
   profilePosition.textContent = popupPosition.value;
 
   closePopup(popupProfile);
 }
 
-function handleAddNewCard(evt) {
-  evt.preventDefault();
+function handleAddNewCard() {
   const popupCardLink = popupImage.querySelector(".popup__subtitle_type_link");
   const popupCardName = popupImage.querySelector(".popup__subtitle_type_image");
 
   const cardLink = popupCardLink.value;
   const cardName = popupCardName.value;
 
-  if (cardLink !== "" && cardName !== "") {
-    item = addItem({ link: cardLink, name: cardName });
-    elements.prepend(item);
-    popupCardLink.value = "";
-    popupCardName.value = "";
-  }
+  item = addItem({ link: cardLink, name: cardName });
+  elements.prepend(item);
+  popupCardLink.value = "";
+  popupCardName.value = "";
 
   closePopup(popupImage);
 }
