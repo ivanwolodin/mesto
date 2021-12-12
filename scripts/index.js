@@ -82,8 +82,17 @@ function addItem(item) {
   return element;
 }
 
+function closeByEsc(popup) {
+  document.addEventListener("keydown", function (evt) {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    }
+  })
+}
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closeByEsc(popup));
 }
 
 function getProfileInfo() {
@@ -98,31 +107,28 @@ function getPictureInfo(popup, evt) {
 }
 
 function closePopup(popup) {
+  document.removeEventListener("keydown", closeByEsc(popup));
   popup.classList.remove("popup_opened");
 }
 
-function handleEditProfileInfo(evt) {
-  evt.preventDefault();
+function handleEditProfileInfo() {
   profileName.textContent = popupName.value;
   profilePosition.textContent = popupPosition.value;
 
   closePopup(popupProfile);
 }
 
-function handleAddNewCard(evt) {
-  evt.preventDefault();
+function handleAddNewCard() {
   const popupCardLink = popupImage.querySelector(".popup__subtitle_type_link");
   const popupCardName = popupImage.querySelector(".popup__subtitle_type_image");
 
   const cardLink = popupCardLink.value;
   const cardName = popupCardName.value;
 
-  if (cardLink !== "" && cardName !== "") {
-    item = addItem({ link: cardLink, name: cardName });
-    elements.prepend(item);
-    popupCardLink.value = "";
-    popupCardName.value = "";
-  }
+  item = addItem({ link: cardLink, name: cardName });
+  elements.prepend(item);
+  popupCardLink.value = "";
+  popupCardName.value = "";
 
   closePopup(popupImage);
 }
@@ -154,5 +160,18 @@ popupCardForm.addEventListener("submit", handleAddNewCard);
 closePopupPictureButton.addEventListener("click", () =>
   closePopup(popupPicture)
 );
+
+popupProfile
+  .querySelector(".popup__overlay")
+  .addEventListener("click", () => closePopup(popupProfile));
+
+popupImage
+  .querySelector(".popup__overlay")
+  .addEventListener("click", () => closePopup(popupImage));
+
+popupPicture
+  .querySelector(".popup__overlay")
+  .addEventListener("click", () => closePopup(popupPicture));
+
 
 render();
