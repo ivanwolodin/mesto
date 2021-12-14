@@ -90,13 +90,11 @@ function addItem(item) {
   return element;
 }
 
-function closeByEsc() {
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_opened');
-      closePopup(openedPopup);
-    }
-  });
+function closeByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
 }
 
 function openPopup(popup) {
