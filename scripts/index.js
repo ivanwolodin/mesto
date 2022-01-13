@@ -1,4 +1,6 @@
-import {Card, initialCards, closeByEsc, closePopup} from "./Card.js";
+import {Card} from "./Card.js";
+import {closePopup, initialCards, openPopup} from "./utils.js";
+import {FormValidator} from "./FormValidator.js";
 
 const popupPicture = document.querySelector('.popup_pic');
 const closePopupPictureButton = popupPicture.querySelector('.popup__close-button');
@@ -29,16 +31,25 @@ const popupCardForm = document.querySelector('.popup__container_card_form');
 
 const elements = document.querySelector('.elements');
 
+const formData = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+const cardValidator = new FormValidator(formData, document.querySelector('.popup__container_card_form'));
+cardValidator.enableValidation();
+
+const profileValidator = new FormValidator(formData, document.querySelector('.popup__container_profile_form'));
+profileValidator.enableValidation();
+
 function render() {
   initialCards.forEach((item) => {
     const newCard = new Card('.elements-cards');
     elements.append(newCard.getNewCard(item));
   });
-}
-
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEsc);
 }
 
 function getProfileInfo() {
@@ -92,14 +103,14 @@ closePopupPictureButton.addEventListener('click', () =>
 
 popupProfile
   .querySelector('.popup__overlay')
-  .addEventListener('click', () => closePopup(popupProfile));
+  .addEventListener('mousedown', () => closePopup(popupProfile));
 
 popupImage
   .querySelector('.popup__overlay')
-  .addEventListener('click', () => closePopup(popupImage));
+  .addEventListener('mousedown', () => closePopup(popupImage));
 
 popupPicture
   .querySelector('.popup__overlay')
-  .addEventListener('click', () => closePopup(popupPicture));
+  .addEventListener('mousedown', () => closePopup(popupPicture));
 
 render();
