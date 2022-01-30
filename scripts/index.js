@@ -1,4 +1,5 @@
 import {Card} from "./Card.js";
+import Section from "./Section.js";
 import {closePopup, initialCards, openPopup} from "./utils.js";
 import {FormValidator} from "./FormValidator.js";
 
@@ -45,12 +46,17 @@ cardValidator.enableValidation();
 const profileValidator = new FormValidator(formData, document.querySelector('.popup__container_profile_form'));
 profileValidator.enableValidation();
 
-function render() {
-  initialCards.forEach((item) => {
-    const newCard = new Card('.elements-cards');
-    elements.append(newCard.getNewCard(item));
-  });
-}
+const cardsSection = new Section(
+  {
+    items: initialCards, renderer: (item) => {
+      const newCard = new Card('.elements-cards');
+      cardsSection.addItem(newCard.getNewCard(item));
+    }
+  },
+  '.elements'
+);
+
+cardsSection.renderItems();
 
 function getProfileInfo() {
   popupName.value = profileName.textContent;
@@ -112,5 +118,3 @@ popupImage
 popupPicture
   .querySelector('.popup__overlay')
   .addEventListener('mousedown', () => closePopup(popupPicture));
-
-render();
