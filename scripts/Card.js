@@ -1,13 +1,11 @@
-import {closeByEsc, openPopup} from "./utils.js";
-
 const popupPicture = document.querySelector('.popup_pic');
 
-
 export class Card {
-  constructor(templateSelector) {
+  constructor(templateSelector, handleCardClick) {
     const elementsTemplate = document.querySelector(templateSelector).content;
     this._item = elementsTemplate.querySelector('.element').cloneNode(true);
     this._elementImage = this._item.querySelector('.element__image');
+    this._handleCardClick = handleCardClick;
   }
 
   getNewCard(data) {
@@ -32,7 +30,7 @@ export class Card {
 
     this._elementImage.addEventListener('click', (evt) => {
       this._fetchCardInfo(popupPicture, evt);
-      openPopup(popupPicture);
+      this._handleCardClick();
     });
   }
 
