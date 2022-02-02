@@ -1,20 +1,3 @@
-export function closePopup(popup) {
-  document.removeEventListener('keydown', closeByEsc);
-  popup.classList.remove('popup_opened');
-}
-
-export function closeByEsc(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
-
-export function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEsc);
-}
-
 export const initialCards = [
   {
     name: 'Архыз',
@@ -47,3 +30,16 @@ export const initialCards = [
       'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ];
+
+export const submitButton = document.querySelector('.popup__save-image');
+export const editButton = document.querySelector('.profile__edit-button');
+
+export const formData = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+export const addButton = document.querySelector('.profile__add-button');
