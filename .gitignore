@@ -1,0 +1,7 @@
+.DS_Store
+.gitignore
+.editorconfig
+.idea/
+.vscode/
+node_modules/
+dist/
