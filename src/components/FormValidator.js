@@ -39,6 +39,13 @@ export class FormValidator {
     }
   }
 
+  resetValidation() {
+    this._toggleButtonActive();
+    this._inputList.forEach((inputElement) => {
+      this._hideError(inputElement)
+    });
+  }
+
   _checkIfInputValid(input) {
     if (!input.validity.valid) {
       this._showError(input, input.validationMessage);

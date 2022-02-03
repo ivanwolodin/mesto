@@ -30,13 +30,7 @@ export default class PopupWithForm extends Popup {
   }
 
   setEventListeners = () => {
-    this._closePopupPictureButton.addEventListener('click', () =>
-      this.close()
-    );
-    this._popUp
-      .querySelector('.popup__overlay')
-      .addEventListener('mousedown', () => this.close());
-
+    super.setEventListeners();
     this._form.addEventListener('submit', this._submitHandler);
   }
 }
