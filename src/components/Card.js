@@ -12,7 +12,7 @@ export class Card {
     return elementsTemplate.querySelector('.element').cloneNode(true);
   }
 
-  createCard() {
+  generateCard() {
     this._item = this._getCardTemplate();
 
     this._elementImage = this._item.querySelector('.element__image');
