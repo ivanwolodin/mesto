@@ -6,7 +6,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import {FormValidator} from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import {addButton, editButton, formData, initialCards, submitButton} from "../utils/constants.js";
+import {addButton, editButton, formData, initialCards} from "../utils/constants.js";
 
 const popupPicture = new PopupWithImage('.popup_pic');
 popupPicture.setEventListeners();

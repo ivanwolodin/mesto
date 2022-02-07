@@ -31,7 +31,6 @@ export const initialCards = [
   },
 ];
 
-export const submitButton = document.querySelector('.popup__save-image');
 export const editButton = document.querySelector('.profile__edit-button');
 
 export const formData = {
