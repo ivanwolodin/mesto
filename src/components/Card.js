@@ -1,7 +1,7 @@
 import {api} from "./Api.js";
 
 export class Card {
-  constructor(templateSelector, handleCardClick, cardData) {
+  constructor(templateSelector, handleCardClick, handleDeleteClick, cardData) {
     this._templateSelector = templateSelector;
     this._cardData = cardData;
 
@@ -12,6 +12,7 @@ export class Card {
     this._myId = "59385c7c302a08e8328209f6";
 
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   _getCardTemplate() {
@@ -42,8 +43,8 @@ export class Card {
     if (this._item.contains(this._item.querySelector('.element__delete-icon'))) {
       this._item
         .querySelector('.element__delete-icon')
-        .addEventListener('click', (evt) => {
-          this._deleteCard(evt)
+        .addEventListener('click', () => {
+          this._handleDeleteClick();
         });
     }
 
@@ -64,16 +65,12 @@ export class Card {
     this._popup.querySelector('.popup__label').textContent = evt.target.alt;
   }
 
-  _deleteCard(evt) {
-    evt.preventDefault();
-    api.deleteCard(this._cardId).then(() => {
-      this._item.remove();
-      this._item = null;
-    })
-      .catch((err) => {
-        alert("Cannot delete card");
-        alert(err);
-      });
+  getCardId(){
+    return this._cardId;
+  }
+
+  deleteCard() {
+    this._item.remove();
   }
 
   _likeCard(evt) {

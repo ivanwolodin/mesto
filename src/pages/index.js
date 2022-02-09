@@ -7,6 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import {FormValidator} from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import {PopupDeleteCard} from "../components/PopupDeleteCard.js";
 import {addButton, editButton, formData} from "../utils/constants.js";
 
 const cardsSection = new Section('.elements',
@@ -60,6 +61,21 @@ const popupProfile = new PopupWithForm(
 
 popupProfile.setEventListeners();
 
+const popupDelete = new PopupDeleteCard(
+  '.popup_delete_card',
+  (card) => {
+    api.deleteCard(card.getCardId()).then(() => {
+      card.deleteCard();
+      popupDelete.close();
+    })
+      .catch((err) => {
+        alert("Cannot delete card");
+        alert(err);
+      });
+  }
+);
+popupDelete.setEventListeners();
+
 const cardValidator = new FormValidator(formData, document.querySelector('.popup__container_card_form'));
 cardValidator.enableValidation();
 
@@ -84,7 +100,10 @@ function createCard(item) {
   const newCard = new Card(
     '.elements-cards',
     () => {
-      popupPicture.open(item.name, item.link)
+      popupPicture.open(item.name, item.link);
+    },
+    () => {
+      popupDelete.open(newCard);
     },
     {
       "name": item.name,
