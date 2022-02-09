@@ -3,13 +3,24 @@ export class Card {
     this._templateSelector = templateSelector;
     this._cardData = cardData;
 
-    this._handleCardClick = handleCardClick;
+    this._cardId = cardData.cardId;
+    this._whoCreated = cardData.ownerId;
+    this._likes = cardData.likes;
 
+    this._myId = "59385c7c302a08e8328209f6";
+
+    this._handleCardClick = handleCardClick;
   }
 
   _getCardTemplate() {
     const elementsTemplate = document.querySelector(this._templateSelector).content;
-    return elementsTemplate.querySelector('.element').cloneNode(true);
+    const cardTemplate = elementsTemplate.querySelector('.element').cloneNode(true);
+
+    if (this._whoCreated !== this._myId) {
+      cardTemplate.querySelector('.element__delete-icon').remove();
+    }
+
+    return cardTemplate;
   }
 
   generateCard() {
@@ -26,11 +37,14 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._item
-      .querySelector('.element__delete-icon')
-      .addEventListener('click', (evt) => {
-        this._deleteCard(evt)
-      });
+    if (this._item.contains(this._item.querySelector('.element__delete-icon'))) {
+      this._item
+        .querySelector('.element__delete-icon')
+        .addEventListener('click', (evt) => {
+          this._deleteCard(evt)
+        });
+    }
+
     this._item
       .querySelector('.element__like-button')
       .addEventListener('click', this._likeCard);

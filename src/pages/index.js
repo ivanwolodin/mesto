@@ -1,6 +1,6 @@
 import './index.css';
 
-import Api from "../components/Api.js";
+import {api} from "../components/Api.js";
 import {Card} from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -9,15 +9,12 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {addButton, editButton, formData} from "../utils/constants.js";
 
-const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-35',
-  token: '3a99f107-1f3f-4594-b232-09564fbe9a82',
-});
 const cardsSection = new Section('.elements',
-    (item) => {
-      cardsSection.addItem(createCard(item));
-    }
+  (item) => {
+    cardsSection.addItem(createCard(item));
+  }
 );
+
 api.getInitialCards().then((result) => {
   cardsSection.renderItems(result);
 })
@@ -73,12 +70,7 @@ const popupCardForm = new PopupWithForm(
   '.popup_image',
   ({name, link}) => {
     api.addNewCard(name, link).then((result) => {
-      cardsSection.prependItem(createCard(
-        {
-          "name": result.name,
-          "link": result.link}
-        )
-      );
+      cardsSection.prependItem(createCard(result));
       popupCardForm.close();
     })
       .catch((err) => {
@@ -94,7 +86,13 @@ function createCard(item) {
     () => {
       popupPicture.open(item.name, item.link)
     },
-    {name: item.name, link: item.link}
+    {
+      "name": item.name,
+      "link": item.link,
+      "cardId": item._id,
+      "ownerId": item.owner._id,
+      "likes": item.likes
+    }
   );
   return newCard.generateCard();
 }

@@ -1,4 +1,4 @@
-export default class Api {
+class Api {
   constructor(options) {
     this._url = options.url;
     this._token = options.token;
@@ -84,4 +84,12 @@ export default class Api {
       });
   }
 
+  deleteCard(){
+
+  }
+
 }
+export const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-35',
+  token: '3a99f107-1f3f-4594-b232-09564fbe9a82',
+});
