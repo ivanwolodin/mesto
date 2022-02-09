@@ -1,3 +1,5 @@
+import {api} from "./Api.js";
+
 export class Card {
   constructor(templateSelector, handleCardClick, cardData) {
     this._templateSelector = templateSelector;
@@ -64,8 +66,14 @@ export class Card {
 
   _deleteCard(evt) {
     evt.preventDefault();
-    this._item.remove();
-    this._item = null;
+    api.deleteCard(this._cardId).then(() => {
+      this._item.remove();
+      this._item = null;
+    })
+      .catch((err) => {
+        alert("Cannot delete card");
+        alert(err);
+      });
   }
 
   _likeCard(evt) {

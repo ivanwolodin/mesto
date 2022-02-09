@@ -84,8 +84,22 @@ class Api {
       });
   }
 
-  deleteCard(){
-
+  deleteCard(cardId){
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
 }
