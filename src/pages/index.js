@@ -9,24 +9,17 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {addButton, editButton, formData} from "../utils/constants.js";
 
-let initialCards = [];
-
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-35/',
+  url: 'https://mesto.nomoreparties.co/v1/cohort-35',
   token: '3a99f107-1f3f-4594-b232-09564fbe9a82',
 });
-
+const cardsSection = new Section('.elements',
+    (item) => {
+      cardsSection.addItem(createCard(item));
+    }
+);
 api.getInitialCards().then((result) => {
-  const cardsSection = new Section(
-    {
-      items: result,
-      renderer: (item) => {
-        cardsSection.addItem(createCard(item));
-      }
-    },
-    '.elements'
-  );
-  cardsSection.renderItems();
+  cardsSection.renderItems(result);
 })
   .catch((err) => {
     alert("All is broken");
@@ -38,15 +31,37 @@ popupPicture.setEventListeners();
 
 const userInfo = new UserInfo('.profile__name', '.profile__position');
 
+api.getUserInfo().then((result) => {
+  userInfo.setUserInfo(
+    result.name,
+    result.about
+  )
+})
+  .catch((err) => {
+    alert("Cannot get user info");
+    alert(err);
+  });
+
+
 const popupProfile = new PopupWithForm(
   '.popup_profile',
   ({name, profession}) => {
-    userInfo.setUserInfo(name, profession);
+    api.changeUserInfo(name, profession).then((result) => {
+      userInfo.setUserInfo(
+        result.name,
+        result.about
+      )
+    })
+      .catch((err) => {
+        alert("Cannot change user info");
+        alert(err);
+      });
+
     popupProfile.close();
   }
 );
 
-popupProfile.setEventListeners();``
+popupProfile.setEventListeners();
 
 const cardValidator = new FormValidator(formData, document.querySelector('.popup__container_card_form'));
 cardValidator.enableValidation();
@@ -57,8 +72,19 @@ profileValidator.enableValidation();
 const popupCardForm = new PopupWithForm(
   '.popup_image',
   ({name, link}) => {
-    cardsSection.prependItem(createCard({name, link}));
-    popupCardForm.close();
+    api.addNewCard(name, link).then((result) => {
+      cardsSection.prependItem(createCard(
+        {
+          "name": result.name,
+          "link": result.link}
+        )
+      );
+      popupCardForm.close();
+    })
+      .catch((err) => {
+        alert("Cannot add new card");
+        alert(err);
+      });
   }
 );
 

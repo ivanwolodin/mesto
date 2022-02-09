@@ -18,10 +18,10 @@
         <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="аватар" />
         <div class="profile__info">
           <div class="profile__personal-data">
-            <h1 class="profile__name">Жак-Ив Густо</h1>
+            <h1 class="profile__name"> </h1>
             <button class="profile__edit-button"></button>
           </div>
-          <p class="profile__position">Исследователь океана</p>
+          <p class="profile__position"> </p>
         </div>
         <button class="profile__add-button"></button>
       </section>
@@ -41,10 +41,10 @@
     <form class="popup__container popup__container_profile_form popup__form" novalidate>
       <h3 class="popup__title">Редактировать профиль</h3>
       <input class="popup__subtitle popup__subtitle_type_name popup__input" id="name-input" type="text"
-        placeholder="Жак-Ив Густо" name="name" required minlength="2" maxlength="40" />
+        placeholder="Имя" name="name" required minlength="2" maxlength="40" />
       <span class="name-input-error"></span>
       <input class="popup__subtitle popup__subtitle_type_profession popup__input" id="position-input" type="text"
-        placeholder="Исследователь океана" name="profession" required minlength="2" maxlength="200" />
+        placeholder="Профессия" name="profession" required minlength="2" maxlength="200" />
       <span class="position-input-error"></span>
       <button class="popup__save-profile popup__button" type="submit">
         Сохранить
