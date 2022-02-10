@@ -21,7 +21,7 @@ class Api {
       });
   }
 
-  getUserInfo(){
+  getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: {
         authorization: this._token
@@ -38,7 +38,7 @@ class Api {
       });
   }
 
-  changeUserInfo(name, profession){
+  changeUserInfo(name, profession) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -61,7 +61,7 @@ class Api {
       });
   }
 
-  addNewCard(name, link){
+  addNewCard(name, link) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
@@ -84,7 +84,7 @@ class Api {
       });
   }
 
-  deleteCard(cardId){
+  deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
@@ -102,7 +102,7 @@ class Api {
       });
   }
 
-  changeAvatar(avatarLink){
+  changeAvatar(avatarLink) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -124,7 +124,43 @@ class Api {
       });
   }
 
+  likeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._token,
+      },
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  dislikeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token,
+      },
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
+
 export const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-35',
   token: '3a99f107-1f3f-4594-b232-09564fbe9a82',

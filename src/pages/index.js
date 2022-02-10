@@ -7,7 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import {FormValidator} from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import {PopupDeleteCard} from "../components/PopupDeleteCard.js";
+import {PopupWithConfirmation} from "../components/PopupWithConfirmation.js";
 
 import {
   addButton,
@@ -69,7 +69,7 @@ const popupProfile = new PopupWithForm(
 
 popupProfile.setEventListeners();
 
-const popupDelete = new PopupDeleteCard(
+const popupDelete = new PopupWithConfirmation(
   '.popup_delete_card',
   (card) => {
     api.deleteCard(card.getCardId()).then(() => {
@@ -116,6 +116,24 @@ function createCard(item) {
     () => {
       popupDelete.open(newCard);
     },
+    (cardId) => {
+      api.likeCard(cardId).then((result) => {
+        newCard.setLikesCounter(result.likes.length);
+      })
+        .catch((err) => {
+          alert("Cannot like card");
+          alert(err);
+        });
+    },
+    (cardId) => {
+      api.dislikeCard(cardId).then((result) => {
+        newCard.setLikesCounter(result.likes.length);
+      })
+        .catch((err) => {
+          alert("Cannot unlike card");
+          alert(err);
+        });
+    },
     {
       "name": item.name,
       "link": item.link,
@@ -161,4 +179,4 @@ popupEditAvatarProfile.setEventListeners();
 editAvatarButton.addEventListener('click', () => {
   editAvatarValidator.resetValidation();
   popupEditAvatarProfile.open();
-})
+});
