@@ -54,7 +54,8 @@ const popupProfile = new PopupWithForm(
     api.changeUserInfo(name, profession).then((result) => {
       userInfo.setUserInfo(
         result.name,
-        result.about
+        result.about,
+        result.avatar
       )
     })
       .catch((err) => {

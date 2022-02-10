@@ -3,6 +3,8 @@ export default class Popup {
     this._popUp = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
     this._closePopupPictureButton = this._popUp.querySelector('.popup__close-button');
+
+    this._popupButton = this._popUp.querySelector('.popup__button');
   }
 
   open () {
