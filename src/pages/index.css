@@ -30,6 +30,8 @@
 @import url(../blocks/element/__delete-icon/element__delete-icon.css);
 @import url(../blocks/element/__delete-icon-part1/element__delete-icon-part1.css);
 @import url(../blocks/element/__delete-icon-part2/element__delete-icon-part2.css);
+@import url(../blocks/element/__like-section/element__like-section.css);
+@import url(../blocks/element/__like-counter/element__like-counter.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
