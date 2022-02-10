@@ -102,7 +102,6 @@ export class Card {
   }
 
   handleLikeCard = (evt) => {
-    console.log(this._likedByMe);
     if (!this._likedByMe) {
       this._likeCard(this._cardId);
       evt.target.classList.toggle('element__like-button_liked');
