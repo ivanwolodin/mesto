@@ -23,10 +23,12 @@ export default class PopupWithForm extends Popup {
     this._form.querySelector('.popup__subtitle_type_profession').value = data.userProfession;
   }
 
-  _submitHandler = (evt) => {
-    evt.preventDefault();
+  _submitHandler = () => {
+    const originalText = this._popupButton.innerText;
+    this._popupButton.innerText = "Сохранение..";
     this._submitCallback(this._getInputValues());
     this._form.reset();
+    this._popupButton.innerText = originalText;
   }
 
   setEventListeners = () => {
