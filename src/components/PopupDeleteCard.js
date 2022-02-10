@@ -18,6 +18,6 @@ export class PopupDeleteCard extends Popup {
 
   setEventListeners = () => {
     super.setEventListeners();
-    this._popUp.addEventListener('click', this._submitHandler);
+    this._popUp.querySelector('.popup__button').addEventListener('click', this._submitHandler);
   }
 }

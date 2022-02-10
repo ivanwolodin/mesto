@@ -8,7 +8,13 @@ import {FormValidator} from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {PopupDeleteCard} from "../components/PopupDeleteCard.js";
-import {addButton, editButton, formData, editAvatarButton} from "../utils/constants.js";
+
+import {
+  addButton,
+  editButton,
+  formData,
+  editAvatarButton
+} from "../utils/constants.js";
 
 const cardsSection = new Section('.elements',
   (item) => {
@@ -27,12 +33,13 @@ api.getInitialCards().then((result) => {
 const popupPicture = new PopupWithImage('.popup_pic');
 popupPicture.setEventListeners();
 
-const userInfo = new UserInfo('.profile__name', '.profile__position');
+const userInfo = new UserInfo('.profile__name', '.profile__position', '.profile__image');
 
 api.getUserInfo().then((result) => {
   userInfo.setUserInfo(
     result.name,
-    result.about
+    result.about,
+    result.avatar
   )
 })
   .catch((err) => {
@@ -133,12 +140,24 @@ editButton.addEventListener('click', () => {
 
 const popupEditAvatarProfile = new PopupWithForm(
   '.popup_avatar',
-  () => {}
+  ({link}) => {
+    api.changeAvatar(link).then((result) => {
+      userInfo.setUserInfo(
+        result.name,
+        result.about,
+        result.avatar
+      )
+      popupEditAvatarProfile.close();
+    })
+      .catch((err) => {
+        alert("Cannot change avatar");
+        alert(err);
+      });
+  }
 );
-
 popupEditAvatarProfile.setEventListeners();
 
-editAvatarButton.addEventListener('click', ()=>{
+editAvatarButton.addEventListener('click', () => {
   editAvatarValidator.resetValidation();
   popupEditAvatarProfile.open();
 })

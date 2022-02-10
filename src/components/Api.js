@@ -102,6 +102,28 @@ class Api {
       });
   }
 
+  changeAvatar(avatarLink){
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: avatarLink
+      })
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
 }
 export const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-35',
