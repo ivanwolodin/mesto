@@ -15,7 +15,10 @@
 
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="аватар" />
+        <div class="profile__avatar">
+          <img class="profile__image" src="<%=require('./images/avatar.jpg')%>" alt="аватар" />
+          <div class="profile__change-avatar"></div>
+        </div>
         <div class="profile__info">
           <div class="profile__personal-data">
             <h1 class="profile__name"> </h1>
@@ -74,7 +77,7 @@
     <div class="popup__overlay"></div>
     <div class="popup__picture">
       <img class="popup__source" src="#" alt="#" />
-      <p class="popup__label"></p>ƒ
+      <p class="popup__label"></p>
       <button class="popup__close-image popup__close-button" type="reset"></button>
     </div>
   </div>
@@ -88,6 +91,20 @@
       </button>
       <button class="popup__close-button" type="reset"></button>
     </div>
+  </div>
+
+  <div class="popup popup_avatar">
+    <div class="popup__overlay"></div>
+    <form class="popup__container popup__container_avatar_form popup__form" novalidate>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <input class="popup__subtitle popup__subtitle_type_link popup__input" id="avatar-input" type="url"
+             placeholder="Ссылка на аватар" name="link" required />
+      <span class="avatar-input-error"></span>
+      <button class="popup__button" type="submit">
+        Сохранить
+      </button>
+      <button class="popup__close-button" type="reset"></button>
+    </form>
   </div>
 
   <template class="elements-cards">

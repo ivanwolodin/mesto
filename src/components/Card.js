@@ -1,4 +1,3 @@
-import {api} from "./Api.js";
 
 export class Card {
   constructor(templateSelector, handleCardClick, handleDeleteClick, cardData) {

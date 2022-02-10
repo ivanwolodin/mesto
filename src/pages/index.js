@@ -8,7 +8,7 @@ import {FormValidator} from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {PopupDeleteCard} from "../components/PopupDeleteCard.js";
-import {addButton, editButton, formData} from "../utils/constants.js";
+import {addButton, editButton, formData, editAvatarButton} from "../utils/constants.js";
 
 const cardsSection = new Section('.elements',
   (item) => {
@@ -82,6 +82,9 @@ cardValidator.enableValidation();
 const profileValidator = new FormValidator(formData, document.querySelector('.popup__container_profile_form'));
 profileValidator.enableValidation();
 
+const editAvatarValidator = new FormValidator(formData, document.querySelector('.popup_avatar'));
+editAvatarValidator.enableValidation();
+
 const popupCardForm = new PopupWithForm(
   '.popup_image',
   ({name, link}) => {
@@ -127,3 +130,15 @@ editButton.addEventListener('click', () => {
   profileValidator.resetValidation();
   popupProfile.open();
 });
+
+const popupEditAvatarProfile = new PopupWithForm(
+  '.popup_avatar',
+  () => {}
+);
+
+popupEditAvatarProfile.setEventListeners();
+
+editAvatarButton.addEventListener('click', ()=>{
+  editAvatarValidator.resetValidation();
+  popupEditAvatarProfile.open();
+})

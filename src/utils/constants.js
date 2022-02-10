@@ -9,3 +9,4 @@ export const formData = {
 };
 
 export const addButton = document.querySelector('.profile__add-button');
+export const editAvatarButton = document.querySelector('.profile__avatar');
