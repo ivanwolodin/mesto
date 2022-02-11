@@ -46,6 +46,7 @@ popupPicture.setEventListeners();
 const popupProfile = new PopupWithForm(
   '.popup_profile',
   ({name, profession}) => {
+    popupProfile.renderLoading(true);
     api.changeUserInfo(name, profession).then((result) => {
       userInfo.setUserInfo(
         result.name,
@@ -57,6 +58,9 @@ const popupProfile = new PopupWithForm(
       .catch((err) => {
         alert("Cannot change user info");
         alert(err);
+      })
+      .finally(() => {
+        popupProfile.renderLoading(false)
       });
   }
 );
@@ -73,7 +77,9 @@ const popupDelete = new PopupWithConfirmation(
       .catch((err) => {
         alert("Cannot delete card");
         alert(err);
-      });
+      })
+
+    ;
   }
 );
 popupDelete.setEventListeners();
@@ -90,6 +96,7 @@ editAvatarValidator.enableValidation();
 const popupCardForm = new PopupWithForm(
   '.popup_image',
   ({name, link}) => {
+    popupCardForm.renderLoading(true);
     api.addNewCard(name, link).then((result) => {
       cardsSection.prependItem(createCard(result));
       popupCardForm.close();
@@ -97,7 +104,11 @@ const popupCardForm = new PopupWithForm(
       .catch((err) => {
         alert("Cannot add new card");
         alert(err);
-      });
+      })
+      .finally(() => {
+        popupCardForm.renderLoading(false);
+      })
+    ;
   }
 );
 
@@ -160,6 +171,7 @@ editButton.addEventListener('click', () => {
 const popupEditAvatarProfile = new PopupWithForm(
   '.popup_avatar',
   ({link}) => {
+    popupEditAvatarProfile.renderLoading(true);
     api.changeAvatar(link).then((result) => {
       userInfo.setUserInfo(
         result.name,
@@ -171,7 +183,11 @@ const popupEditAvatarProfile = new PopupWithForm(
       .catch((err) => {
         alert("Cannot change avatar");
         alert(err);
-      });
+      })
+      .finally(() => {
+        popupEditAvatarProfile.renderLoading(false)
+      })
+    ;
   }
 );
 popupEditAvatarProfile.setEventListeners();
