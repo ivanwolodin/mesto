@@ -1,5 +1,3 @@
-import {api} from "./Api.js";
-
 export class Card {
   constructor(
     templateSelector,
@@ -7,7 +5,8 @@ export class Card {
     handleDeleteClick,
     handleLikeCard,
     handleDislikeCard,
-    cardData) {
+    cardData,
+    userId) {
     this._templateSelector = templateSelector;
     this._cardData = cardData;
     this._cardId = cardData.cardId;
@@ -21,7 +20,7 @@ export class Card {
       }
     )
 
-    this._myId = "59385c7c302a08e8328209f6";
+    this._userId = userId;
     this._likedByMe = false;
 
     this._handleCardClick = handleCardClick;
@@ -33,20 +32,18 @@ export class Card {
   }
 
   setLikesCounter = (counter) => {
-    this._item.querySelector('.element__like-counter').innerHTML = counter;
+    this._likeCounter.textContent = counter;
   }
 
   _getCardTemplate() {
     const elementsTemplate = document.querySelector(this._templateSelector).content;
     const cardTemplate = elementsTemplate.querySelector('.element').cloneNode(true);
 
-    cardTemplate.querySelector('.element__like-counter').innerHTML = this._likes.length;
-
     if (this._whoCreated !== this._myId) {
       cardTemplate.querySelector('.element__delete-icon').remove();
     }
 
-    if (this._whoLiked.includes(this._myId)) {
+    if (this._whoLiked.includes(this._userId)) {
       cardTemplate.querySelector('.element__like-button').classList.add('element__like-button_liked');
       this._likedByMe = true;
     }
@@ -56,6 +53,9 @@ export class Card {
 
   generateCard() {
     this._item = this._getCardTemplate();
+
+    this._likeCounter = this._item.querySelector('.element__like-counter');
+    this._likeCounter.textContent = this._likes.length;
 
     this._elementImage = this._item.querySelector('.element__image');
     this._elementImage.src = this._cardData.link;
@@ -106,8 +106,7 @@ export class Card {
       this._likeCard(this._cardId);
       evt.target.classList.toggle('element__like-button_liked');
       this._likedByMe = !this._likedByMe;
-    }
-    else {
+    } else {
       this._unlikeCard(this._cardId);
       evt.target.classList.toggle('element__like-button_liked');
       this._likedByMe = !this._likedByMe;

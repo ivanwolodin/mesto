@@ -16,37 +16,32 @@ import {
   editAvatarButton
 } from "../utils/constants.js";
 
+let userId;
+
 const cardsSection = new Section('.elements',
   (item) => {
     cardsSection.addItem(createCard(item));
   }
 );
+const userInfo = new UserInfo('.profile__name', '.profile__position', '.profile__image');
 
-api.getInitialCards().then((result) => {
-  cardsSection.renderItems(result);
-})
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    cardsSection.renderItems(cards);
+    userInfo.setUserInfo(
+      userData.name,
+      userData.about,
+      userData.avatar
+    );
+  })
   .catch((err) => {
-    alert("All is broken");
+    alert("Cannot get data from server");
     alert(err);
   });
 
 const popupPicture = new PopupWithImage('.popup_pic');
 popupPicture.setEventListeners();
-
-const userInfo = new UserInfo('.profile__name', '.profile__position', '.profile__image');
-
-api.getUserInfo().then((result) => {
-  userInfo.setUserInfo(
-    result.name,
-    result.about,
-    result.avatar
-  )
-})
-  .catch((err) => {
-    alert("Cannot get user info");
-    alert(err);
-  });
-
 
 const popupProfile = new PopupWithForm(
   '.popup_profile',
@@ -56,14 +51,13 @@ const popupProfile = new PopupWithForm(
         result.name,
         result.about,
         result.avatar
-      )
+      );
+      popupProfile.close();
     })
       .catch((err) => {
         alert("Cannot change user info");
         alert(err);
       });
-
-    popupProfile.close();
   }
 );
 
@@ -140,7 +134,8 @@ function createCard(item) {
       "cardId": item._id,
       "ownerId": item.owner._id,
       "likes": item.likes
-    }
+    },
+    userId
   );
   return newCard.generateCard();
 }
@@ -152,7 +147,10 @@ addButton.addEventListener('click', () => {
 });
 
 editButton.addEventListener('click', () => {
-  popupProfile.getFormValues(userInfo.getUserInfo());
+  popupProfile.getFormValues(userInfo.getUserInfo(), {
+    selectorName: '.popup__subtitle_type_name',
+    selectorProfession: '.popup__subtitle_type_profession'
+  });
   profileValidator.resetValidation();
   popupProfile.open();
 });
@@ -165,7 +163,7 @@ const popupEditAvatarProfile = new PopupWithForm(
         result.name,
         result.about,
         result.avatar
-      )
+      );
       popupEditAvatarProfile.close();
     })
       .catch((err) => {
