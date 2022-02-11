@@ -55,6 +55,7 @@ export class Card {
     this._item = this._getCardTemplate();
 
     this._likeCounter = this._item.querySelector('.element__like-counter');
+    this._deleteIcon = this._item.querySelector('.element__delete-icon');
     this._likeCounter.textContent = this._likes.length;
 
     this._elementImage = this._item.querySelector('.element__image');
@@ -68,9 +69,8 @@ export class Card {
   }
 
   _setEventListeners() {
-    if (this._item.contains(this._item.querySelector('.element__delete-icon'))) {
-      this._item
-        .querySelector('.element__delete-icon')
+    if (this._item.contains(this._deleteIcon)) {
+      this._deleteIcon
         .addEventListener('click', () => {
           this._handleDeleteClick();
         });
