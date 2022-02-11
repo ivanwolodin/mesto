@@ -1,5 +1,3 @@
-import {api} from "./Api.js";
-
 export class Card {
   constructor(
     templateSelector,
@@ -7,7 +5,8 @@ export class Card {
     handleDeleteClick,
     handleLikeCard,
     handleDislikeCard,
-    cardData) {
+    cardData,
+    userId) {
     this._templateSelector = templateSelector;
     this._cardData = cardData;
     this._cardId = cardData.cardId;
@@ -21,32 +20,30 @@ export class Card {
       }
     )
 
-    this._myId = "59385c7c302a08e8328209f6";
+    this._userId = userId;
     this._likedByMe = false;
 
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
 
     this._likeCard = handleLikeCard;
-    this._unlikeCard = handleDislikeCard;
+    this._dislikeCard = handleDislikeCard;
 
   }
 
   setLikesCounter = (counter) => {
-    this._item.querySelector('.element__like-counter').innerHTML = counter;
+    this._likeCounter.textContent = counter;
   }
 
   _getCardTemplate() {
     const elementsTemplate = document.querySelector(this._templateSelector).content;
     const cardTemplate = elementsTemplate.querySelector('.element').cloneNode(true);
 
-    cardTemplate.querySelector('.element__like-counter').innerHTML = this._likes.length;
-
-    if (this._whoCreated !== this._myId) {
+    if (this._whoCreated !== this._userId) {
       cardTemplate.querySelector('.element__delete-icon').remove();
     }
 
-    if (this._whoLiked.includes(this._myId)) {
+    if (this._whoLiked.includes(this._userId)) {
       cardTemplate.querySelector('.element__like-button').classList.add('element__like-button_liked');
       this._likedByMe = true;
     }
@@ -56,6 +53,10 @@ export class Card {
 
   generateCard() {
     this._item = this._getCardTemplate();
+
+    this._likeCounter = this._item.querySelector('.element__like-counter');
+    this._deleteIcon = this._item.querySelector('.element__delete-icon');
+    this._likeCounter.textContent = this._likes.length;
 
     this._elementImage = this._item.querySelector('.element__image');
     this._elementImage.src = this._cardData.link;
@@ -68,9 +69,8 @@ export class Card {
   }
 
   _setEventListeners() {
-    if (this._item.contains(this._item.querySelector('.element__delete-icon'))) {
-      this._item
-        .querySelector('.element__delete-icon')
+    if (this._item.contains(this._deleteIcon)) {
+      this._deleteIcon
         .addEventListener('click', () => {
           this._handleDeleteClick();
         });
@@ -81,16 +81,8 @@ export class Card {
       .addEventListener('click', this.handleLikeCard);
 
     this._elementImage.addEventListener('click', (evt) => {
-      this._fetchCardInfo(evt);
       this._handleCardClick();
     });
-  }
-
-  _fetchCardInfo(evt) {
-    this._popup = document.querySelector('.popup_pic');
-    this._popup.querySelector('.popup__source').src = evt.target.src;
-    this._popup.querySelector('.popup__source').alt = evt.target.alt;
-    this._popup.querySelector('.popup__label').textContent = evt.target.alt;
   }
 
   getCardId() {
@@ -101,17 +93,21 @@ export class Card {
     this._item.remove();
   }
 
+  likeCard = (evt) => {
+    evt.target.classList.add('element__like-button_liked');
+    this._likedByMe = !this._likedByMe;
+  }
+
+  dislikeCard = (evt) => {
+    evt.target.classList.remove('element__like-button_liked');
+    this._likedByMe = !this._likedByMe;
+  }
+
   handleLikeCard = (evt) => {
     if (!this._likedByMe) {
-      this._likeCard(this._cardId);
-      evt.target.classList.toggle('element__like-button_liked');
-      this._likedByMe = !this._likedByMe;
+      this._likeCard(evt, this._cardId);
+    } else {
+      this._dislikeCard(evt, this._cardId);
     }
-    else {
-      this._unlikeCard(this._cardId);
-      evt.target.classList.toggle('element__like-button_liked');
-      this._likedByMe = !this._likedByMe;
-    }
-
   }
 }

@@ -16,54 +16,52 @@ import {
   editAvatarButton
 } from "../utils/constants.js";
 
+let userId;
+
 const cardsSection = new Section('.elements',
   (item) => {
     cardsSection.addItem(createCard(item));
   }
 );
+const userInfo = new UserInfo('.profile__name', '.profile__position', '.profile__image');
 
-api.getInitialCards().then((result) => {
-  cardsSection.renderItems(result);
-})
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    cardsSection.renderItems(cards);
+    userInfo.setUserInfo(
+      userData.name,
+      userData.about,
+      userData.avatar
+    );
+  })
   .catch((err) => {
-    alert("All is broken");
+    alert("Cannot get data from server");
     alert(err);
   });
 
 const popupPicture = new PopupWithImage('.popup_pic');
 popupPicture.setEventListeners();
 
-const userInfo = new UserInfo('.profile__name', '.profile__position', '.profile__image');
-
-api.getUserInfo().then((result) => {
-  userInfo.setUserInfo(
-    result.name,
-    result.about,
-    result.avatar
-  )
-})
-  .catch((err) => {
-    alert("Cannot get user info");
-    alert(err);
-  });
-
-
 const popupProfile = new PopupWithForm(
   '.popup_profile',
   ({name, profession}) => {
+    popupProfile.renderLoading(true);
     api.changeUserInfo(name, profession).then((result) => {
       userInfo.setUserInfo(
         result.name,
         result.about,
         result.avatar
-      )
+      );
+      popupProfile.close();
     })
       .catch((err) => {
         alert("Cannot change user info");
         alert(err);
+      })
+      .finally(() => {
+        popupProfile.renderLoading(false)
       });
-
-    popupProfile.close();
   }
 );
 
@@ -79,7 +77,9 @@ const popupDelete = new PopupWithConfirmation(
       .catch((err) => {
         alert("Cannot delete card");
         alert(err);
-      });
+      })
+
+    ;
   }
 );
 popupDelete.setEventListeners();
@@ -96,6 +96,7 @@ editAvatarValidator.enableValidation();
 const popupCardForm = new PopupWithForm(
   '.popup_image',
   ({name, link}) => {
+    popupCardForm.renderLoading(true);
     api.addNewCard(name, link).then((result) => {
       cardsSection.prependItem(createCard(result));
       popupCardForm.close();
@@ -103,7 +104,11 @@ const popupCardForm = new PopupWithForm(
       .catch((err) => {
         alert("Cannot add new card");
         alert(err);
-      });
+      })
+      .finally(() => {
+        popupCardForm.renderLoading(false);
+      })
+    ;
   }
 );
 
@@ -116,18 +121,20 @@ function createCard(item) {
     () => {
       popupDelete.open(newCard);
     },
-    (cardId) => {
+    (evt, cardId) => {
       api.likeCard(cardId).then((result) => {
         newCard.setLikesCounter(result.likes.length);
+        newCard.likeCard(evt);
       })
         .catch((err) => {
           alert("Cannot like card");
           alert(err);
         });
     },
-    (cardId) => {
+    (evt, cardId) => {
       api.dislikeCard(cardId).then((result) => {
         newCard.setLikesCounter(result.likes.length);
+        newCard.dislikeCard(evt);
       })
         .catch((err) => {
           alert("Cannot unlike card");
@@ -140,7 +147,8 @@ function createCard(item) {
       "cardId": item._id,
       "ownerId": item.owner._id,
       "likes": item.likes
-    }
+    },
+    userId
   );
   return newCard.generateCard();
 }
@@ -152,7 +160,10 @@ addButton.addEventListener('click', () => {
 });
 
 editButton.addEventListener('click', () => {
-  popupProfile.getFormValues(userInfo.getUserInfo());
+  popupProfile.getFormValues(userInfo.getUserInfo(), {
+    selectorName: '.popup__subtitle_type_name',
+    selectorProfession: '.popup__subtitle_type_profession'
+  });
   profileValidator.resetValidation();
   popupProfile.open();
 });
@@ -160,18 +171,23 @@ editButton.addEventListener('click', () => {
 const popupEditAvatarProfile = new PopupWithForm(
   '.popup_avatar',
   ({link}) => {
+    popupEditAvatarProfile.renderLoading(true);
     api.changeAvatar(link).then((result) => {
       userInfo.setUserInfo(
         result.name,
         result.about,
         result.avatar
-      )
+      );
       popupEditAvatarProfile.close();
     })
       .catch((err) => {
         alert("Cannot change avatar");
         alert(err);
-      });
+      })
+      .finally(() => {
+        popupEditAvatarProfile.renderLoading(false)
+      })
+    ;
   }
 );
 popupEditAvatarProfile.setEventListeners();

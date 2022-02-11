@@ -9,7 +9,7 @@ export default class UserInfo {
     return {
       'userName': this._userName.textContent,
       'userProfession': this._userProfession.textContent,
-      'avatar': window.getComputedStyle(this._userAvatar).getPropertyValue('background-image')
+
     }
   }
 
