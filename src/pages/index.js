@@ -110,18 +110,20 @@ function createCard(item) {
     () => {
       popupDelete.open(newCard);
     },
-    (cardId) => {
+    (evt, cardId) => {
       api.likeCard(cardId).then((result) => {
         newCard.setLikesCounter(result.likes.length);
+        newCard.likeCard(evt);
       })
         .catch((err) => {
           alert("Cannot like card");
           alert(err);
         });
     },
-    (cardId) => {
+    (evt, cardId) => {
       api.dislikeCard(cardId).then((result) => {
         newCard.setLikesCounter(result.likes.length);
+        newCard.dislikeCard(evt);
       })
         .catch((err) => {
           alert("Cannot unlike card");

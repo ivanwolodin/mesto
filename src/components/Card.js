@@ -27,7 +27,7 @@ export class Card {
     this._handleDeleteClick = handleDeleteClick;
 
     this._likeCard = handleLikeCard;
-    this._unlikeCard = handleDislikeCard;
+    this._dislikeCard = handleDislikeCard;
 
   }
 
@@ -39,7 +39,7 @@ export class Card {
     const elementsTemplate = document.querySelector(this._templateSelector).content;
     const cardTemplate = elementsTemplate.querySelector('.element').cloneNode(true);
 
-    if (this._whoCreated !== this._myId) {
+    if (this._whoCreated !== this._userId) {
       cardTemplate.querySelector('.element__delete-icon').remove();
     }
 
@@ -81,16 +81,8 @@ export class Card {
       .addEventListener('click', this.handleLikeCard);
 
     this._elementImage.addEventListener('click', (evt) => {
-      this._fetchCardInfo(evt);
       this._handleCardClick();
     });
-  }
-
-  _fetchCardInfo(evt) {
-    this._popup = document.querySelector('.popup_pic');
-    this._popup.querySelector('.popup__source').src = evt.target.src;
-    this._popup.querySelector('.popup__source').alt = evt.target.alt;
-    this._popup.querySelector('.popup__label').textContent = evt.target.alt;
   }
 
   getCardId() {
@@ -101,16 +93,21 @@ export class Card {
     this._item.remove();
   }
 
+  likeCard = (evt) => {
+    evt.target.classList.add('element__like-button_liked');
+    this._likedByMe = !this._likedByMe;
+  }
+
+  dislikeCard = (evt) => {
+    evt.target.classList.remove('element__like-button_liked');
+    this._likedByMe = !this._likedByMe;
+  }
+
   handleLikeCard = (evt) => {
     if (!this._likedByMe) {
-      this._likeCard(this._cardId);
-      evt.target.classList.toggle('element__like-button_liked');
-      this._likedByMe = !this._likedByMe;
+      this._likeCard(evt, this._cardId);
     } else {
-      this._unlikeCard(this._cardId);
-      evt.target.classList.toggle('element__like-button_liked');
-      this._likedByMe = !this._likedByMe;
+      this._dislikeCard(evt, this._cardId);
     }
-
   }
 }
